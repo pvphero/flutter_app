@@ -139,11 +139,54 @@ class RandomWords extends StatefulWidget {
 }
 
 class _RandomWordsState extends State<RandomWords> {
+
+  final _suggestions =<WordPair>[];
+  final _biggerFont = TextStyle(fontSize: 18.0);
+
+  //_buildSugggestions 用来构建显示建议单词的Listview
+  Widget _buildSugggestions(){
+    return ListView.builder(
+        padding: EdgeInsets.all(16.0),
+        /**
+         * 将单词添加到ListTitle行中。在偶数行，该函数会为单吃添加一个ListTitle row，在奇数行，该函数会添加一个分割线widget
+         */
+        itemBuilder: (context,i){
+          //在每一列添加一个像素是1分隔线 widget
+          if(i.isOdd){
+            return Divider();
+          }
+          //表示i/2返回整形  向下取整，用来计算listview减去分割线后实际单词对应的数量
+          final index=i ~/2;
+          if(index>=_suggestions.length){
+            //如果是建议列表最后一个单词对，接着在生成10个单词对，然后添加到建议队列
+            _suggestions.addAll(generateWordPairs().take(10));
+          }
+          return _buildRow(_suggestions[index]);
+        });
+  }
+  Widget _buildRow(WordPair pair) {
+    return ListTile(
+      title: Text(
+        pair.asPascalCase,
+        style: _biggerFont,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final wordPair=WordPair.random();
-    return Text(wordPair.asPascalCase);
+    // final wordPair=WordPair.random();
+    // return Text(wordPair.asPascalCase);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Startup Name Generator'),
+      ),
+      body: _buildSugggestions(),
+    );
   }
+
+
 }
 
 
