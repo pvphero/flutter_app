@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final wordPair=WordPair.random();
     return MaterialApp(
-      title: 'Welcome to Flutter',
+      title: 'Startup Name Generator',
       // theme: ThemeData(
       //   // This is the theme of your application.
       //   //
@@ -34,16 +34,7 @@ class MyApp extends StatelessWidget {
       // ),
 
       //Scaffold 提供了导航栏  标题  主屏幕widget 树的 body 属性
-      home:Scaffold(
-        appBar: AppBar(
-          title: Text('Welcome to Flutter'),
-        ),
-        //body widget中包含一个center widget,center又包含一个Text,Center widgets可以将其子widget对齐到屏幕中心
-        body: Center(
-          child: RandomWords(),
-        ),
-      ),
-      // home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: RandomWords(),
     );
   }
 }
