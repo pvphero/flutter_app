@@ -13,9 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   //一个widgets的主要工作是提供一个build（）方法来描述如何根据其他较低级别的widgets来显示自己
   Widget build(BuildContext context) {
-    final wordPair=WordPair.random();
+    final wordPair = WordPair.random();
     return MaterialApp(
       title: 'Startup Name Generator',
+      theme: new ThemeData(primaryColor: Colors.white),
       // theme: ThemeData(
       //   // This is the theme of your application.
       //   //
@@ -83,8 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
+          title: Text(widget.title)),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
@@ -130,38 +130,52 @@ class RandomWords extends StatefulWidget {
 }
 
 class _RandomWordsState extends State<RandomWords> {
-
-  final _suggestions =<WordPair>[];
+  final _suggestions = <WordPair>[];
   final _biggerFont = TextStyle(fontSize: 18.0);
+  final _saved = new Set<WordPair>();
 
   //_buildSugggestions 用来构建显示建议单词的Listview
-  Widget _buildSugggestions(){
+  Widget _buildSugggestions() {
     return ListView.builder(
         padding: EdgeInsets.all(16.0),
         /**
          * 将单词添加到ListTitle行中。在偶数行，该函数会为单吃添加一个ListTitle row，在奇数行，该函数会添加一个分割线widget
          */
-        itemBuilder: (context,i){
+        itemBuilder: (context, i) {
           //在每一列添加一个像素是1分隔线 widget
-          if(i.isOdd){
+          if (i.isOdd) {
             return Divider();
           }
           //表示i/2返回整形  向下取整，用来计算listview减去分割线后实际单词对应的数量
-          final index=i ~/2;
-          if(index>=_suggestions.length){
+          final index = i ~/ 2;
+          if (index >= _suggestions.length) {
             //如果是建议列表最后一个单词对，接着在生成10个单词对，然后添加到建议队列
             _suggestions.addAll(generateWordPairs().take(10));
           }
           return _buildRow(_suggestions[index]);
         });
   }
+
   Widget _buildRow(WordPair pair) {
+    final alreadySaved = _saved.contains(pair);
     return ListTile(
-      title: Text(
-        pair.asPascalCase,
-        style: _biggerFont,
-      ),
-    );
+        title: Text(
+          pair.asPascalCase,
+          style: _biggerFont,
+        ),
+        trailing: new Icon(
+          alreadySaved ? Icons.favorite : Icons.favorite_border,
+          color: alreadySaved ? Colors.red : null,
+        ),
+        onTap: () {
+          setState(() {
+            if (alreadySaved) {
+              _saved.remove(pair);
+            } else {
+              _saved.add(pair);
+            }
+          });
+        });
   }
 
   @override
@@ -172,18 +186,41 @@ class _RandomWordsState extends State<RandomWords> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Startup Name Generator'),
+        actions: [
+          new IconButton(icon: new Icon(Icons.list), onPressed: _pushSaved)
+        ],
       ),
       body: _buildSugggestions(),
     );
   }
 
+  void _pushSaved() {
+    Navigator.of(context).push(
+      new MaterialPageRoute(
+        builder: (context) {
+          final tiles = _saved.map(
+                (pair) {
+              return new ListTile(
+                title: new Text(
+                  pair.asPascalCase,
+                  style: _biggerFont,
+                ),
+              );
+            },
+          );
+          final divided = ListTile.divideTiles(
+            context: context,
+            tiles: tiles,
+          ).toList();
 
+          return new Scaffold(
+            appBar: new AppBar(
+              title: new Text('Saved Suggestions'),
+            ),
+            body: new ListView(children: divided),
+          );
+        },
+      ),
+    );
+  }
 }
-
-
-
-
-
-
-
-
