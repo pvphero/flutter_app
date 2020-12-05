@@ -16,17 +16,34 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       home: Scaffold(
         appBar: new AppBar(
-          title: new Text('ListView'),
-        ),
-        body: new ListView(
-          children: [
-            new ListTile(
-              leading: new Icon(Icons.ac_unit),
-              title: new Text('data'),
-            )
-          ],
-        ),
-      ),
+            title: new Text('ListView'),
+          ),
+          body: Center(
+            child: Container(
+              height: 200.0,
+              child: new ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  new Container(
+                    width: 180.0,
+                    color: Colors.red,
+                  ),
+                  new Container(
+                    width: 180.0,
+                    color: Colors.pink,
+                  ),
+                  new Container(
+                    width: 180.0,
+                    color: Colors.yellow,
+                  ),
+                  new Container(
+                    width: 180.0,
+                    color: Colors.black,
+                  )
+                ],
+              ),
+            ),
+          )),
     );
   }
 }
