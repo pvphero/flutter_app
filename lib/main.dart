@@ -15,37 +15,42 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       home: Scaffold(
-        appBar: new AppBar(
+          appBar: new AppBar(
             title: new Text('ListView'),
           ),
           body: Center(
             child: Container(
               height: 200.0,
-              child: new ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  new Container(
-                    width: 180.0,
-                    color: Colors.red,
-                  ),
-                  new Container(
-                    width: 180.0,
-                    color: Colors.pink,
-                  ),
-                  new Container(
-                    width: 180.0,
-                    color: Colors.yellow,
-                  ),
-                  new Container(
-                    width: 180.0,
-                    color: Colors.black,
-                  )
-                ],
-              ),
+              child: new MyList(),
             ),
           )),
     );
   }
 }
 
-
+class MyList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      scrollDirection: Axis.horizontal,
+      children: [
+        new Container(
+          width: 180.0,
+          color: Colors.red,
+        ),
+        new Container(
+          width: 180.0,
+          color: Colors.pink,
+        ),
+        new Container(
+          width: 180.0,
+          color: Colors.yellow,
+        ),
+        new Container(
+          width: 180.0,
+          color: Colors.black,
+        )
+      ],
+    );
+  }
+}
