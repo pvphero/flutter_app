@@ -6,51 +6,32 @@ import 'package:flutter/material.dart';
  * (=> 当行行数的简写
  */
 void main() {
-  runApp(MyApp());
+  runApp(
+      MyApp(items: new List<String>.generate(1000, (index) => "Item $index")));
 }
 
 class MyApp extends StatelessWidget {
+  final List<String> items;
+
+  MyApp({Key key, @required this.items}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       home: Scaffold(
-          appBar: new AppBar(
-            title: new Text('ListView'),
-          ),
-          body: Center(
-            child: Container(
-              height: 200.0,
-              child: new MyList(),
-            ),
-          )),
-    );
-  }
-}
-
-class MyList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      scrollDirection: Axis.horizontal,
-      children: [
-        new Container(
-          width: 180.0,
-          color: Colors.red,
+        appBar: new AppBar(
+          title: new Text('ListView'),
         ),
-        new Container(
-          width: 180.0,
-          color: Colors.pink,
+        body: new ListView.builder(
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            return new ListTile(
+              title: new Text('${items[index]}'),
+            );
+          },
         ),
-        new Container(
-          width: 180.0,
-          color: Colors.yellow,
-        ),
-        new Container(
-          width: 180.0,
-          color: Colors.black,
-        )
-      ],
+      ),
     );
   }
 }
