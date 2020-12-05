@@ -20,14 +20,10 @@ class MyApp extends StatelessWidget {
         ),
         body: new ListView(
           children: [
-            new Image.network(
-                'https://img4.sycdn.imooc.com/5c18cf540001ac8206000338-360-202.jpg'),
-            new Image.network(
-                'https://img4.sycdn.imooc.com/5c18cf540001ac8206000338-360-202.jpg'),
-            new Image.network(
-                'https://img4.sycdn.imooc.com/5c18cf540001ac8206000338-360-202.jpg'),
-            new Image.network(
-                'https://img4.sycdn.imooc.com/5c18cf540001ac8206000338-360-202.jpg')
+            new ListTile(
+              leading: new Icon(Icons.ac_unit),
+              title: new Text('data'),
+            )
           ],
         ),
       ),
