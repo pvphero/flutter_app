@@ -1,58 +1,20 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(new ArticleApp());
 
-class MyApp extends StatelessWidget {
+//stle stful
+class ArticleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '电影海报',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("电影"),
-        ),
-        body: GridView(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            mainAxisSpacing: 2.0,
-            crossAxisSpacing: 2.0,
-            childAspectRatio: 0.75,
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text(
+            '文章',
+            style: const TextStyle(color: Colors.white),
           ),
-          children: [
-            new Image.network(
-              'https://img4.sycdn.imooc.com/58577eaf00017b9c06000338-360-202.jpg',
-              fit: BoxFit.cover,
-            ),
-            new Image.network(
-              'https://img4.sycdn.imooc.com/58577eaf00017b9c06000338-360-202.jpg',
-              fit: BoxFit.cover,
-            ),
-            new Image.network(
-              'https://img4.sycdn.imooc.com/58577eaf00017b9c06000338-360-202.jpg',
-              fit: BoxFit.cover,
-            ),
-            new Image.network(
-              'https://img4.sycdn.imooc.com/58577eaf00017b9c06000338-360-202.jpg',
-              fit: BoxFit.cover,
-            ),
-            new Image.network(
-              'https://img4.sycdn.imooc.com/58577eaf00017b9c06000338-360-202.jpg',
-              fit: BoxFit.cover,
-            ),
-            new Image.network(
-              'https://img4.sycdn.imooc.com/58577eaf00017b9c06000338-360-202.jpg',
-              fit: BoxFit.cover,
-            ),
-            new Image.network(
-              'https://img4.sycdn.imooc.com/58577eaf00017b9c06000338-360-202.jpg',
-              fit: BoxFit.cover,
-            ),
-            new Image.network(
-              'https://img4.sycdn.imooc.com/58577eaf00017b9c06000338-360-202.jpg',
-              fit: BoxFit.cover,
-            ),
-          ],
         ),
+        body: new ArticlePage(),
       ),
     );
   }
